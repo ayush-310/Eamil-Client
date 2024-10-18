@@ -5,7 +5,7 @@ import "./App.css";
 
 const EmailClient = () => {
   const [emails, setEmails] = useState([]);
-  const [selectedEmail, setSelectedEmail] = useState(null);
+  const [selectedEmail, setSelectedEmail] = useState(null); // Storing complete email object
   const [emailBody, setEmailBody] = useState(null);
   const [filter, setFilter] = useState('all'); // all, favorites, read, unread
   const [page, setPage] = useState(1); // Pagination state
@@ -24,27 +24,27 @@ const EmailClient = () => {
   }, [page]);
 
   // Function to handle selecting/deselecting an email
-  const handleEmailClick = (id) => {
-    if (selectedEmail === id) {
+  const handleEmailClick = (email) => {
+    if (selectedEmail && selectedEmail.id === email.id) {
       // Deselect the email if clicked again
       setSelectedEmail(null);
       setEmailBody(null);
     } else {
       // Fetch the email body when a new email is selected
-      axios.get(`https://flipkart-email-mock.now.sh/?id=${id}`)
+      axios.get(`https://flipkart-email-mock.now.sh/?id=${email.id}`)
         .then(response => setEmailBody(response.data))
         .catch(error => console.error(error));
 
       // Mark as read when clicked
       setEmails(prevEmails => {
-        const updatedEmails = prevEmails.map(email =>
-          email.id === id ? { ...email, read: true } : email
+        const updatedEmails = prevEmails.map(e =>
+          e.id === email.id ? { ...e, read: true } : e
         );
         persistEmails(updatedEmails);
         return updatedEmails;
       });
 
-      setSelectedEmail(id);
+      setSelectedEmail(email); // Store the entire email object
     }
   };
 
@@ -76,35 +76,54 @@ const EmailClient = () => {
     return true;
   });
 
+  const filterButtons = [
+    { label: 'All', value: 'all' },
+    { label: 'Unread', value: 'unread' },
+    { label: 'Read', value: 'read' },
+    { label: 'Favorites', value: 'favorites' }
+  ];
+
   return (
     <div className="email-client">
       {/* Email List View */}
       <div className="email-list">
         <h2>Emails</h2>
         <div>
-          <button onClick={() => setFilter('all')}>All</button>
-          {/* <p>Filter By :</p> */}
+          {filterButtons.map((button) => (
+            <button
+              key={button.value}
+              onClick={() => setFilter(button.value)}
+              style={{
+                backgroundColor: filter === button.value ? '#E54065' : '#e2e8f0',
+                color: filter === button.value ? 'white' : 'black'
+              }}
+            >
+              {button.label}
+            </button>
+          ))}
+
+          {/* <button onClick={() => setFilter('all')}>All</button>
           <button onClick={() => setFilter('unread')}>Unread</button>
           <button onClick={() => setFilter('read')}>Read</button>
-          <button onClick={() => setFilter('favorites')}>Favorites</button>
+          <button onClick={() => setFilter('favorites')}>Favorites</button> */}
         </div>
         <ul>
           {filteredEmails.map(email => (
             <li
               key={email.id}
-              className={`${email.read ? 'read' : 'unread'} ${selectedEmail === email.id ? 'selected' : ''}`}
-              onClick={() => handleEmailClick(email.id)}
+              className={`${email.read ? 'read' : 'unread'} ${selectedEmail?.id === email.id ? 'selected' : ''}`}
+              onClick={() => handleEmailClick(email)} // Pass the entire email object
             >
               <div className="email-avatar">
                 <p className="text">
-                  {email.from.name.charAt(0).toUpperCase()}
+                  {email.from.name.charAt(0).toUpperCase()} {/* First letter of sender's name */}
                 </p>
               </div>
               <div className='email-details'>
                 <h4> <span className='aa'>From:</span> <span>{email.from.email}</span></h4>
                 <h4>  <span className='aa'>Subject:</span> <span>{email.subject}</span></h4>
-                <p className='aa' >{email.short_description} .....</p>
-                <p className='aa' >{moment(email.date).format('DD/MM/YYYY hh:mm a')}</p>
+                <p className='aa'>{email.short_description} .....</p>
+                <p className='aa'>{moment(email.date).format('DD/MM/YYYY hh:mm a')}</p>
               </div>
             </li>
           ))}
@@ -119,16 +138,27 @@ const EmailClient = () => {
 
       {/* Email Body View */}
       {selectedEmail && emailBody && (
+
         <div className="email-body">
 
-          <h2>{emailBody.subject}</h2>
-          <p>{emailBody.body}</p>
-          <p>{moment(emailBody.date).format('DD/MM/YYYY hh:mm a')}</p>
-          <button onClick={() => markAsFavorite(selectedEmail)}>
-            {emails.find(email => email.id === selectedEmail)?.favorite
-              ? 'Unmark Favorite'
-              : 'Mark as Favorite'}
-          </button>
+          <div className='ww'>
+            <div className='xx'>
+              <div className="texte">
+                <p>{selectedEmail.from.name.charAt(0).toUpperCase()}</p>
+              </div>
+              <div className='yy'>
+                <h1>{selectedEmail.subject}</h1>
+                <p>{moment(selectedEmail.date).format('DD/MM/YYYY hh:mm a')}</p>
+              </div>
+            </div>
+
+            <button onClick={() => markAsFavorite(selectedEmail.id)}>
+              {emails.find(email => email.id === selectedEmail.id)?.favorite
+                ? 'Unmark Favorite'
+                : 'Mark as Favorite'}
+            </button>
+          </div>
+          <p className='zz'>{emailBody.body}</p>
         </div>
       )}
     </div>

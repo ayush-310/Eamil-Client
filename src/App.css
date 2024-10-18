@@ -16,6 +16,7 @@
 
 .email-client {
     display: flex;
+    padding: 50px;
     background-color: #F4F5F9;
 }
 
@@ -25,7 +26,7 @@
 }
 
 .email-list {
-    flex: 1;
+    flex: 4;
     /* overflow-y: scroll; */
     padding: 20px;
     /* border-right: 1px solid #CFD2DC; */
@@ -57,9 +58,10 @@
     /* Read Background */
 }
 
-.aa{
+.aa {
     color: #636363;
 }
+
 .email-list li.unread {
     /* font-weight: bold; */
     display: flex;
@@ -67,17 +69,29 @@
 }
 
 .email-body {
+    flex: 8;
     margin-top: 113px;
     margin-right: 15px;
     padding: 20px;
-    width: 60%;
-    height: 651px;
+    display: flex;
+    flex-direction: column;
     background-color: white;
     border: 1px solid #CFD2DC;
     border-radius: 6px;
-    /* overflow-y: scroll; */
-
 }
+
+.ww {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+}
+
+
+.zz {
+    padding: 0 50px 15px 50px;
+    margin: 0 15px 15px 22px
+}
+
 
 .email-details {
     display: flex;
@@ -85,32 +99,48 @@
     gap: 9px;
 }
 
+.yy {
+    color: #636363;
+    display: flex;
+    gap: 23px;
+    flex-direction: column;
+}
+
 .email-body h2 {
     color: #636363;
     /* Text color */
 }
 
-.email-body p {
+.email-body>p {
     color: #636363;
     /* Text color */
+}
+
+.xx {
+    display: flex;
+    gap: 20px;
+
 }
 
 button {
     padding: 10px 20px;
     margin: 10px;
     background-color: #E1E4EA;
-    /* Filter Button */
     border: none;
     border-radius: 5px;
     cursor: pointer;
     color: #636363;
-    /* Text color */
+
 }
 
 button:hover {
     background-color: #E54065;
     /* Accent Color for hover */
     color: white;
+}
+
+button:active {
+    background-color: #E54065;
 }
 
 button:disabled {
@@ -138,9 +168,23 @@ ul {
     font-size: 28px;
 }
 
+.texte {
+    background-color: #E54065;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    color: white !important;
+    border-radius: 100%;
+    width: 3rem;
+    font-size: 28px;
+    height: 3rem;
+}
+
 .email-body button {
     background-color: #E54065;
     /* Accent color for Favorite button */
+    height: 40px;
     color: white;
     border: none;
     padding: 10px;
