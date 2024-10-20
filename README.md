@@ -70,18 +70,4 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 
-For the Email Client project, the primary objective was to create a responsive web application that enables users to manage their emails effectively. The approach included the following steps:
 
-1. **Requirement Analysis**:
-    - Understanding user needs for an email client, such as viewing emails, marking favorites, and filtering options.
-2. **UI/UX Design**:
-    - Designing a user-friendly interface that allows easy navigation between different sections of the application. Tools like Figma or Adobe XD could have been utilized for wireframing.
-3. **Frontend Development**:
-    - Using ReactJS to build a dynamic and interactive user interface. The project incorporated state management to handle user actions (like marking emails as favorites) and to manage the display of emails.
-    - Implementing responsive design principles to ensure compatibility across devices.
-4. **Backend Integration**:
-    - Developing RESTful APIs to handle email data. Integration with a mock email service or a third-party API to fetch emails for the client.
-5. **Testing**:
-    - Conducting unit tests and user testing to identify and resolve issues. Ensuring the application works seamlessly across different browsers.
-6. **Deployment**:
-    - Deploying the application on Vercel to ensure it is accessible to users.
