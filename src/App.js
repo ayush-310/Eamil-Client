@@ -101,11 +101,6 @@ const EmailClient = () => {
               {button.label}
             </button>
           ))}
-
-          {/* <button onClick={() => setFilter('all')}>All</button>
-          <button onClick={() => setFilter('unread')}>Unread</button>
-          <button onClick={() => setFilter('read')}>Read</button>
-          <button onClick={() => setFilter('favorites')}>Favorites</button> */}
         </div>
         <ul>
           {filteredEmails.map(email => (
